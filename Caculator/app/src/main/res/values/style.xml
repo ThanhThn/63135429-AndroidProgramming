@@ -2,9 +2,10 @@
 <resources>
     <dimen name="radius_small">12dp</dimen>
     <dimen name="radius_default">16dp</dimen>
-    <dimen name="width_default">62dp</dimen>
+    <dimen name="width_default">82dp</dimen>
     <dimen name="width_large">144dp</dimen>
+    <dimen name="height_ssmall">40dp</dimen>
     <dimen name="height_small">60dp</dimen>
-    <dimen name="height_default">62dp</dimen>
-    <dimen name="height_large">96dp</dimen>
+    <dimen name="height_default">82dp</dimen>
+    <dimen name="height_large">138dp</dimen>
 </resources>
