@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity  implements OnClickListener {
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
     idNum1, idNum2, idNum3, idNum4, idNum5, idNum6, idNum7, idNum8, idNum9, idNum0,
     idClear, idDelete, idDecimal;
     ImageButton multiply, decimal;
+    TextView inputMath;
+    String input = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,20 +33,32 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         multiply = findViewById(idMulitiply);
         idEqual = R.id.equal;
         equal = findViewById(idEqual);
-        num1 = findViewById(R.id.num1);
-        num2 = findViewById(R.id.num2);
-        num3 = findViewById(R.id.num3);
-        num4 = findViewById(R.id.num4);
-        num5 = findViewById(R.id.num5);
-        num6 = findViewById(R.id.num6);
-        num7 = findViewById(R.id.num7);
-        num8 = findViewById(R.id.num8);
-        num9 = findViewById(R.id.num9);
-        num0 = findViewById(R.id.num0);
-        clear = findViewById(R.id.clear);
-        delete = findViewById(R.id.delete);
+        idNum1 = R.id.num1;
+        num1 = findViewById(idNum1);
+        idNum2 = R.id.num2;
+        num2 = findViewById(idNum2);
+        idNum3 = R.id.num3;
+        num3 = findViewById(idNum3);
+        idNum4 = R.id.num4;
+        num4 = findViewById(idNum4);
+        idNum5 = R.id.num5;
+        num5 = findViewById(idNum5);
+        idNum6 = R.id.num6;
+        num6 = findViewById(idNum6);
+        idNum7 = R.id.num7;
+        num7 = findViewById(idNum7);
+        idNum8 = R.id.num8;
+        num8 = findViewById(idNum8);
+        idNum9 = R.id.num9;
+        num9 = findViewById(idNum9);
+        idNum0 = R.id.num0;
+        num0 = findViewById(idNum0);
+        idClear = R.id.clear;
+        clear = findViewById(idClear);
+        idDelete = R.id.delete;
+        delete = findViewById(idDelete);
         decimal = findViewById(R.id.decimal);
-
+        inputMath = findViewById(R.id.inputMath);
         //Set Click
         plus.setOnClickListener(this);
         minus.setOnClickListener(this);
@@ -69,15 +84,41 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
-
+        if(input.length() == 1 && input.equals("0")) input = "";
         if (viewId == idPlus) {
-            Toast.makeText(this, "Đây là dấu cộng", Toast.LENGTH_LONG).show();
+            input += "+";
         } else if (viewId == idMinus) {
-            Toast.makeText(this, "Đây là dấu trừ", Toast.LENGTH_LONG).show();
+            input += "-";
         } else if (viewId == idDivision) {
-            Toast.makeText(this, "Đây là dấu chia", Toast.LENGTH_LONG).show();
+            input += "*";
         } else if (viewId == idMulitiply) {
-            Toast.makeText(this, "Đây là dấu nhân", Toast.LENGTH_LONG).show();
+            input += "/";
+        } else if (viewId == idNum1) {
+            input += "1";
+        } else if (viewId == idNum2) {
+            input += "2";
+        } else if (viewId == idNum3) {
+            input += "3";
+        } else if (viewId == idNum4) {
+            input += "4";
+        } else if (viewId == idNum5) {
+            input += "5";
+        } else if (viewId == idNum6) {
+            input += "6";
+        } else if (viewId == idNum7) {
+            input += "7";
+        } else if (viewId == idNum8) {
+            input += "8";
+        } else if (viewId == idNum9) {
+            input += "9";
+        } else if (viewId == idNum0) {
+            input += "0";
+        } else if (viewId == idDelete) {
+            if(input.length() > 1) input = input.substring(0, input.length()-1);
+            else input = "0";
+        } else if (viewId == idClear){
+            input = "0";
         }
+        inputMath.setText(input);
     }
 }
