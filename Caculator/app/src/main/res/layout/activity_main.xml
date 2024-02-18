@@ -20,10 +20,19 @@
             android:id="@+id/inputMath"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="39dp"
+            android:layout_marginBottom="26dp"
             android:gravity="right"
             android:text="0"
             android:textSize="26dp" />
+
+        <TextView
+            android:id="@+id/ouputMath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:layout_marginBottom="39dp"
+            android:gravity="right"
+            android:text="" />
 
         <LinearLayout
             android:id="@+id/linearLayout"

@@ -8,17 +8,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import Evaluate.EvaluateString;
 
 public class MainActivity extends AppCompatActivity  implements OnClickListener {
     Button plus, minus, division, equal, num1, num2, num3, num4, num5, num6, num7, num8, num9, num0, clear, delete;
 
-    int idPlus, idMinus, idDivision, idMulitiply, idEqual,
+    int idPlus, idMinus, idDivision, idMultiply, idEqual,
     idNum1, idNum2, idNum3, idNum4, idNum5, idNum6, idNum7, idNum8, idNum9, idNum0,
     idClear, idDelete, idDecimal;
     ImageButton multiply, decimal;
-    TextView inputMath;
-    String input = "";
+    TextView inputMath, outputMath;
+    String input = "", output = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +30,8 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         minus = findViewById(idMinus);
         idDivision = R.id.division;
         division =  findViewById(idDivision);
-        idMulitiply = R.id.multiply;
-        multiply = findViewById(idMulitiply);
+        idMultiply = R.id.multiply;
+        multiply = findViewById(idMultiply);
         idEqual = R.id.equal;
         equal = findViewById(idEqual);
         idNum1 = R.id.num1;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         delete = findViewById(idDelete);
         decimal = findViewById(R.id.decimal);
         inputMath = findViewById(R.id.inputMath);
+        outputMath = findViewById(R.id.ouputMath);
         //Set Click
         plus.setOnClickListener(this);
         minus.setOnClickListener(this);
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
             input += "-";
         } else if (viewId == idDivision) {
             input += "*";
-        } else if (viewId == idMulitiply) {
+        } else if (viewId == idMultiply) {
             input += "/";
         } else if (viewId == idNum1) {
             input += "1";
@@ -118,6 +120,9 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
             else input = "0";
         } else if (viewId == idClear){
             input = "0";
+        }else if (viewId == idEqual){
+            output = "= " + EvaluateString.evaluate(input);
+            outputMath.setText(output);
         }
         inputMath.setText(input);
     }
