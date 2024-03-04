@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         clear = findViewById(idClear);
         idDelete = R.id.delete;
         delete = findViewById(idDelete);
-        decimal = findViewById(R.id.decimal);
+        idDecimal = R.id.decimal;
+        decimal = findViewById(idDecimal);
         inputMath = findViewById(R.id.inputMath);
         outputMath = findViewById(R.id.ouputMath);
         //Set Click
@@ -92,9 +93,9 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         } else if (viewId == idMinus) {
             input += "-";
         } else if (viewId == idDivision) {
-            input += "*";
-        } else if (viewId == idMultiply) {
             input += "/";
+        } else if (viewId == idMultiply) {
+            input += "*";
         } else if (viewId == idNum1) {
             input += "1";
         } else if (viewId == idNum2) {
@@ -115,11 +116,15 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
             input += "9";
         } else if (viewId == idNum0) {
             input += "0";
+        } else if (viewId == idDecimal) {
+            input += ".";
         } else if (viewId == idDelete) {
             if(input.length() > 1) input = input.substring(0, input.length()-1);
             else input = "0";
+            outputMath.setText("");
         } else if (viewId == idClear){
             input = "0";
+            outputMath.setText("");
         }else if (viewId == idEqual){
             output = "= " + EvaluateString.evaluate(input);
             outputMath.setText(output);

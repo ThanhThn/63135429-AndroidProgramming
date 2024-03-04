@@ -3,19 +3,18 @@ package Evaluate;
 import java.util.Stack;
 
 public class EvaluateString {
-    public static int evaluate(String expresion){
+    public static Double evaluate(String expresion){
         char[] tokens = expresion.toCharArray();
-        Stack<Integer> values = new Stack<Integer>();
+        Stack<Double> values = new Stack<Double>();
         Stack<Character> ops =  new Stack<Character>();
         for(int i = 0; i < tokens.length; i++){
             if(tokens[i] == ' ') continue;
-            if(tokens[i] >= '0' && tokens[i] <= '9'){
+            if((tokens[i] >= '0' && tokens[i] <= '9') || tokens[i] == '.'){
                 StringBuffer sbuf = new StringBuffer();
-                while(i < tokens.length && tokens[i] >= '0' && tokens[i] <= '9'){
+                while(i < tokens.length && ((tokens[i] >= '0' && tokens[i] <= '9') || tokens[i] == '.')){
                     sbuf.append(tokens[i++]);
-
                 }
-                values.push(Integer.parseInt(sbuf.toString()));
+                values.push(Double.parseDouble(sbuf.toString()));
                 i--;
             }
             else if (tokens[i] == '+' || tokens[i] == '-' || tokens[i] == '*' || tokens[i] == '/'){
@@ -37,7 +36,7 @@ public class EvaluateString {
         else
             return true;
     }
-    public static int applyOp(char op, int a, int b){
+    public static Double applyOp(char op, Double b, Double a){
         switch (op)
         {
             case '+':
@@ -53,6 +52,6 @@ public class EvaluateString {
                             "Cannot divide by zero");
                 return a / b;
         }
-        return 0;
+        return 0.0;
     }
 }
