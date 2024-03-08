@@ -10,13 +10,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import Evaluate.EvaluateString;
+import GroupEvalute.GroupEvaluteString;
 
 public class MainActivity extends AppCompatActivity  implements OnClickListener {
-    Button plus, minus, division, equal, num1, num2, num3, num4, num5, num6, num7, num8, num9, num0, clear, delete;
-
+    boolean check =true;
+    Button plus, minus, division, equal, num1, num2, num3, num4, num5, num6, num7, num8, num9, num0, clear, delete, group;
     int idPlus, idMinus, idDivision, idMultiply, idEqual,
     idNum1, idNum2, idNum3, idNum4, idNum5, idNum6, idNum7, idNum8, idNum9, idNum0,
-    idClear, idDelete, idDecimal;
+    idClear, idDelete, idDecimal, idGroup;
     ImageButton multiply, decimal;
     TextView inputMath, outputMath;
     String input = "", output = "";
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         delete = findViewById(idDelete);
         idDecimal = R.id.decimal;
         decimal = findViewById(idDecimal);
+        idGroup = R.id.group;
+        group = findViewById(idGroup);
         inputMath = findViewById(R.id.inputMath);
         outputMath = findViewById(R.id.ouputMath);
         //Set Click
@@ -81,6 +84,7 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         clear.setOnClickListener(this);
         delete.setOnClickListener(this);
         decimal.setOnClickListener(this);
+        group.setOnClickListener(this);
     }
 
 
@@ -125,8 +129,20 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         } else if (viewId == idClear){
             input = "0";
             outputMath.setText("");
-        }else if (viewId == idEqual){
-            output = "= " + EvaluateString.evaluate(input);
+        } else if (viewId == idGroup) {
+            if(check){
+                input += "(";
+                check = false;
+            }else {
+                input += ")";
+                check = true;
+            }
+        } else if (viewId == idEqual){
+            if(!check){
+                input += ")";
+                check = true;
+            }
+            output = "= " + new GroupEvaluteString(input).evaluate();
             outputMath.setText(output);
         }
         inputMath.setText(input);

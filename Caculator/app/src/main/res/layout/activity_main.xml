@@ -42,13 +42,13 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/e"
+                android:id="@+id/group"
                 android:layout_width="@dimen/width_default"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/poppins_medium"
-                android:text="e"
+                android:text="()"
                 android:textSize="16sp"
                 android:textColor="@color/blue_300"
                 app:backgroundTint="@color/primary_color" />

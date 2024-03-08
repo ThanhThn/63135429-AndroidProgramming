@@ -6,7 +6,7 @@ public class EvaluateString {
     public static Double evaluate(String expresion){
         char[] tokens = expresion.toCharArray();
         Stack<Double> values = new Stack<Double>();
-        Stack<Character> ops =  new Stack<Character>();
+        Stack<Character> ops = new Stack<Character>();
         for(int i = 0; i < tokens.length; i++){
             if(tokens[i] == ' ') continue;
             if((tokens[i] >= '0' && tokens[i] <= '9') || tokens[i] == '.'){
