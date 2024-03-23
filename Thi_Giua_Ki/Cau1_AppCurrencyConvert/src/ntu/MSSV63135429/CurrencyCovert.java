@@ -16,15 +16,21 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import customer.RoundedButton;
+import customer.RoundedText;
 
 import javax.swing.JLabel;
 import java.awt.Color;
+import javax.swing.SpringLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class CurrencyCovert extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Font font;
+	private JTextField textField;
 	
 	void usingCustomFonts() {
 	    try {
@@ -48,12 +54,35 @@ public class CurrencyCovert extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("CURRENCY CONVERT");
+		lblNewLabel.setBounds(213, 34, 273, 47);
 		lblNewLabel.setFont(font.deriveFont(24f));
-		lblNewLabel.setBounds(225, 40, 284, 47);
 		contentPane.add(lblNewLabel);
 		
-//		JButton btnCovert = new RoundedButton();
-//		btnCovert.setSize(348, 61);
-//		contentPane.add(btnCovert);
+		JButton btnCovert = new RoundedButton();
+		btnCovert.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnCovert.setBounds(176, 250, 348, 61);
+		btnCovert.setText("Convert");
+		btnCovert.setFont(font.deriveFont(32f));
+		contentPane.add(btnCovert);
+		
+		JTextField txtFrom = new RoundedText();
+		txtFrom.setBounds(48, 195, 187, 33);
+		txtFrom.setFont(font.deriveFont(16f));
+		
+		txtFrom.setBorder(new EmptyBorder(4, 24, 0, 16));
+		contentPane.add(txtFrom);
+		
+		RoundedText txtTo = new RoundedText();
+		txtTo.setEditable(false);
+		txtTo.setBounds(464, 194, 187, 33);
+		txtTo.setFont(font.deriveFont(16f));
+		txtTo.setBorder(new EmptyBorder(4, 24, 0, 16));
+		contentPane.add(txtTo);
+		
+
+		
 	}
 }
