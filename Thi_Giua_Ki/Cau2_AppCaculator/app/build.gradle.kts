@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    namespace = "ntu._63135429.caculator"
+    namespace = "ntu.MSSV63135429.caculator"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "ntu._63135429.caculator"
-        minSdk = 16
+        applicationId = "ntu.MSSV63135429.caculator"
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"

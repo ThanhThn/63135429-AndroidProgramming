@@ -13,5 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Caculator"
+rootProject.name = "Cau2_AppCaculator"
 include(":app")
+ 

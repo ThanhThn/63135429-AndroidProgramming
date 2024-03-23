@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="radius_small">12dp</dimen>
+    <dimen name="radius_default">16dp</dimen>
+    <dimen name="width_default">82dp</dimen>
+    <dimen name="width_large">184dp</dimen>
+    <dimen name="height_ssmall">40dp</dimen>
+    <dimen name="height_small">60dp</dimen>
+    <dimen name="height_default">82dp</dimen>
+    <dimen name="height_large">138dp</dimen>
+</resources>
