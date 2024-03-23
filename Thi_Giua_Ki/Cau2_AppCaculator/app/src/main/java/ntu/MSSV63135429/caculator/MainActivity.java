@@ -9,15 +9,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 import ntu.MSSV63135429.caculator.GroupEvalute.GroupEvaluteString;
 
 
 public class MainActivity extends AppCompatActivity  implements OnClickListener {
     boolean check =true;
-    Button plus, minus, division, equal, num1, num2, num3, num4, num5, num6, num7, num8, num9, num0, clear, delete, group;
+    DecimalFormat decimalFormat = new DecimalFormat("#.######");
+    Button plus, minus, division, equal, num1, num2, num3, num4, num5, num6, num7, num8, num9, num0, clear, delete, group, sin, cos, deg;
     int idPlus, idMinus, idDivision, idMultiply, idEqual,
             idNum1, idNum2, idNum3, idNum4, idNum5, idNum6, idNum7, idNum8, idNum9, idNum0,
-            idClear, idDelete, idDecimal, idGroup;
+            idClear, idDelete, idDecimal, idGroup, idSin, idCos, idDeg;
     ImageButton multiply, decimal;
     TextView inputMath, outputMath;
     String input = "", output = "";
@@ -63,6 +66,12 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         decimal = findViewById(idDecimal);
         idGroup = R.id.group;
         group = findViewById(idGroup);
+        idSin = R.id.sin;
+        sin = findViewById(idSin);
+        idCos = R.id.cos;
+        cos = findViewById(idCos);
+        idDeg = R.id.deg;
+        deg = findViewById(idDeg);
         inputMath = findViewById(R.id.inputMath);
         outputMath = findViewById(R.id.ouputMath);
         //Set Click
@@ -85,6 +94,38 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         delete.setOnClickListener(this);
         decimal.setOnClickListener(this);
         group.setOnClickListener(this);
+        sin.setOnClickListener(this);
+        cos.setOnClickListener(this);
+        deg.setOnClickListener(this);
+    }
+
+    private void addOperation(String op) {
+        if (input.length() > 0 && Character.isDigit(input.charAt(input.length() - 1))) {
+            input += op;
+        };
+        if (input.length() == 0) input = "0";
+    }
+
+
+    private void addTrigonometric(String trigonometric) {
+        int index = 0;
+        for (int i = input.length() - 1; i >= 0; i--) {
+            if (!Character.isDigit(input.charAt(i))) {
+                index = i + 1;
+                break;
+            }
+        }
+        String firstPart = input.substring(0, index);
+        String secondPart = input.substring(index);
+        if (trigonometric.equals("cos") || trigonometric.equals("sin")) {
+            input = firstPart + trigonometric + "(" + secondPart + ")";
+        } else {
+            input = firstPart + "(" + secondPart + ")" + trigonometric;
+        }
+    }
+
+    private void deleteGroup(){
+        check = check ? false : true;
     }
 
 
@@ -93,13 +134,13 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         int viewId = v.getId();
         if(input.length() == 1 && input.equals("0")) input = "";
         if (viewId == idPlus) {
-            input += "+";
+            addOperation("+");
         } else if (viewId == idMinus) {
-            input += "-";
+            addOperation("-");
         } else if (viewId == idDivision) {
-            input += "/";
+            addOperation("/");
         } else if (viewId == idMultiply) {
-            input += "*";
+            addOperation("*");
         } else if (viewId == idNum1) {
             input += "1";
         } else if (viewId == idNum2) {
@@ -121,13 +162,27 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
         } else if (viewId == idNum0) {
             input += "0";
         } else if (viewId == idDecimal) {
-            input += ".";
-        } else if (viewId == idDelete) {
+            if (input.length() == 0) input = "0";
+            if(Character.isDigit(input.charAt(input.length() - 1))){
+                input += ".";
+            }
+        }
+        else if (viewId == idSin) {
+            addTrigonometric("sin");
+        }
+        else if (viewId == idCos) {
+            addTrigonometric("cos");
+        }
+        else if (viewId == idDeg) {
+            addTrigonometric("deg");
+        }else if (viewId == idDelete) {
+            deleteGroup();
             if(input.length() > 1) input = input.substring(0, input.length()-1);
             else input = "0";
             outputMath.setText("");
         } else if (viewId == idClear){
             input = "0";
+            check = true;
             outputMath.setText("");
         } else if (viewId == idGroup) {
             if(check){
@@ -142,7 +197,9 @@ public class MainActivity extends AppCompatActivity  implements OnClickListener 
                 input += ")";
                 check = true;
             }
-            output = "= " + new GroupEvaluteString(input).evaluate();
+            if(input.length() == 0) input = "0";
+            if(input.charAt(input.length() - 1) == '.') input = input.substring(0, input.length() - 1);
+            output = "= " + decimalFormat.format(new GroupEvaluteString(input).evaluate());
             outputMath.setText(output);
         }
         inputMath.setText(input);
