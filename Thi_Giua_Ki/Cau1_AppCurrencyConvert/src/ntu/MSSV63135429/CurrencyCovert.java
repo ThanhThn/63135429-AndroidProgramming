@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,8 @@ import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.SpringLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -39,7 +42,7 @@ import javax.swing.SwingConstants;
 
 public class CurrencyCovert extends JFrame {
 	Map<String, Double> ratesMap;
-
+	DecimalFormat decimalFormat = new DecimalFormat("#.####");
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Font font;
@@ -99,7 +102,6 @@ public class CurrencyCovert extends JFrame {
 	            double value = conversionRates.getDouble(key);
 	            ratesMap.put(key, value);
 	        }
-	        System.out.println(conversionRates.toString());
 
 	    } catch (IOException e) {
 	        e.printStackTrace();
@@ -109,6 +111,7 @@ public class CurrencyCovert extends JFrame {
 	
 	public CurrencyCovert() {
 		usingCustomFonts();
+		readApi("VND"); 
 		setTitle("Currency Convert");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 374);
@@ -138,14 +141,6 @@ public class CurrencyCovert extends JFrame {
 		txtTo.setBorder(new EmptyBorder(4, 24, 0, 16));
 		contentPane.add(txtTo);
 		
-		JComboBox<String> cBFrom = new JComboBox(currencyNames);
-		cBFrom.setBounds(488, 114, 138, 21);
-		contentPane.add(cBFrom);
-		
-		JComboBox<String> cBTo = new JComboBox(currencyNames);
-		cBTo.setBounds(50, 114, 138, 21);
-		contentPane.add(cBTo);
-		
 		JPanel panelConvert = new RoundedPanel();
 		panelConvert.setBounds(253, 188, 194, 40);
 		contentPane.add(panelConvert);
@@ -166,23 +161,60 @@ public class CurrencyCovert extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("=");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setForeground(new Color(194, 181, 234));
-		lblNewLabel_2.setBounds(86, 2, 14, 36);
+		lblNewLabel_2.setBounds(80, 4, 14, 36);
 		lblNewLabel_2.setFont(font.deriveFont(14f));
 		panelConvert.add(lblNewLabel_2);
 		
 		JLabel exchangeRate = new JLabel("1 VND");
 		exchangeRate.setForeground(new Color(194, 181, 234));
-		exchangeRate.setBounds(110, 4, 74, 36);
+		exchangeRate.setBounds(99, 4, 85, 36);
 		exchangeRate.setFont(font.deriveFont(14f));
 		panelConvert.add(exchangeRate);
+		
+		
+		
+		JComboBox<String> cBTo = new JComboBox(currencyNames);
+		cBTo.setBounds(488, 114, 138, 21);
+		contentPane.add(cBTo);
+		cBTo.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String selectedCurrency = (String) e.getItem();
+                    exchangeRate.setText(decimalFormat.format(ratesMap.get(selectedCurrency)) + " " + selectedCurrency);
+                }
+            }
+        });
+		
+		JComboBox<String> cBFrom = new JComboBox(currencyNames);
+		cBFrom.setBounds(50, 114, 138, 21);
+		contentPane.add(cBFrom);
+		cBFrom.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String selectedCurrency = (String) e.getItem();
+                    currencyFrom.setText(selectedCurrency);
+                }
+            }
+        });
 		
 		JButton btnCovert = new RoundedButton();
 		btnCovert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String amountFrom =  (String)txtFrom.getText();
 				if(amountFrom.equals("")) {
-					JOptionPane.showMessageDialog(null, "This is a notification!");
+					JOptionPane.showMessageDialog(null, "Cannot be converted without value!");
+					return;
 				}
+				try {
+		            double number = Double.parseDouble(amountFrom);
+		            double value = number * ratesMap.get(cBTo.getSelectedItem());
+		            txtTo.setText(String.valueOf(value));
+		        } catch (NumberFormatException ex) {
+		        	JOptionPane.showMessageDialog(null, "Invalid value!");
+		        }
+				
 			}
 		});
 		btnCovert.setBounds(176, 250, 348, 61);
