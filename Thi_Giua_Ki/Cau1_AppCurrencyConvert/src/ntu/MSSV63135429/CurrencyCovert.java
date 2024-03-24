@@ -25,6 +25,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.json.JSONObject;
 
+import customer.IconButton;
 import customer.RoundedButton;
 import customer.RoundedComboBox;
 import customer.RoundedPanel;
@@ -238,6 +239,16 @@ public class CurrencyCovert extends JFrame {
 		btnCovert.setFont(font.deriveFont(32f));
 		btnCovert.setBorder(new EmptyBorder(6, 0, 0, 0));
 		contentPane.add(btnCovert);
+		
+		JButton exchange = new IconButton(getClass().getResource("switch-horizontal-02.png"));
+		exchange.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+					
+			}
+		});
+		exchange.setBounds(305, 102, 82, 61);
+		contentPane.add(exchange);
 		
 		Panel panel = new Panel();
 		panel.setBackground(new Color(194, 181, 234));
