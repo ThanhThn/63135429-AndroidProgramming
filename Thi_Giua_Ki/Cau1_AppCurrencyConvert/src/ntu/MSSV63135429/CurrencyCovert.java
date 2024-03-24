@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -25,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 import org.json.JSONObject;
 
 import customer.RoundedButton;
+import customer.RoundedComboBox;
 import customer.RoundedPanel;
 import customer.RoundedText;
 
@@ -111,7 +113,7 @@ public class CurrencyCovert extends JFrame {
 	
 	public CurrencyCovert() {
 		usingCustomFonts();
-		readApi("VND"); 
+	//	readApi("VND"); 
 		
 		setTitle("Currency Convert");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -174,8 +176,10 @@ public class CurrencyCovert extends JFrame {
 		
 		
 		
-		JComboBox<String> cBTo = new JComboBox(currencyNames);
-		cBTo.setBounds(488, 114, 138, 21);
+		JComboBox<String> cBTo = new RoundedComboBox();
+		cBTo.setModel(new DefaultComboBoxModel<String>(currencyNames));
+		cBTo.setBounds(464, 114, 187, 58);
+		cBTo.setFont(font.deriveFont(20f));
 		contentPane.add(cBTo);
 		cBTo.addItemListener(new ItemListener() {
             @Override
@@ -187,14 +191,17 @@ public class CurrencyCovert extends JFrame {
             }
         });
 		
-		JComboBox<String> cBFrom = new JComboBox(currencyNames);
-		cBFrom.setBounds(50, 114, 138, 21);
+		JComboBox<String> cBFrom = new RoundedComboBox();
+		cBFrom.setModel(new DefaultComboBoxModel<String>(currencyNames));
+		cBFrom.setEditor(null);
+		cBFrom.setFont(font.deriveFont(20f));
+		cBFrom.setBounds(48, 114, 187, 58);
 		contentPane.add(cBFrom);
 		cBFrom.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                	readApi((String) e.getItem());
+//                	readApi((String) e.getItem());
                     String selectedCurrency = (String) e.getItem();
                     currencyFrom.setText(selectedCurrency);
                     String currencyTo = (String)cBTo.getSelectedItem();
