@@ -193,7 +193,6 @@ public class CurrencyCovert extends JFrame {
 		
 		JComboBox<String> cBFrom = new RoundedComboBox();
 		cBFrom.setModel(new DefaultComboBoxModel<String>(currencyNames));
-		cBFrom.setEditor(null);
 		cBFrom.setFont(font.deriveFont(20f));
 		cBFrom.setBounds(48, 114, 187, 58);
 		contentPane.add(cBFrom);
