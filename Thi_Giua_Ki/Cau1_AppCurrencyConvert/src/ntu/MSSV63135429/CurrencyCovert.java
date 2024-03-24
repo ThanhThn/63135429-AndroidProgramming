@@ -245,7 +245,6 @@ public class CurrencyCovert extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String currencyTo = (String)cBTo.getSelectedItem();
 				String currencyFrom = (String)cBFrom.getSelectedItem();
-				System.out.print(currencyFrom);
 				cBFrom.setSelectedItem(currencyTo);
 				cBTo.setSelectedItem(currencyFrom);
 				
