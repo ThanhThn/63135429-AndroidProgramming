@@ -6,5 +6,8 @@
         <item name="cornerSizeTopLeft">26dp</item>
         <item name="cornerSizeTopRight">26dp</item>
     </style>
+    <style name="corner_13" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">13dp</item>
+    </style>
 
 </resources>
