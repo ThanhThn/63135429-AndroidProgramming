@@ -2,6 +2,9 @@
 <resources>
     <style name="circular">
         <item name="cornerSize">50%</item></style>
-
+    <style name="corner_top" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSizeTopLeft">26dp</item>
+        <item name="cornerSizeTopRight">26dp</item>
+    </style>
 
 </resources>
