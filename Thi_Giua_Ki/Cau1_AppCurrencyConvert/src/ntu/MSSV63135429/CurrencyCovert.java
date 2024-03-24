@@ -42,7 +42,7 @@ import javax.swing.SwingConstants;
 
 public class CurrencyCovert extends JFrame {
 	Map<String, Double> ratesMap;
-	DecimalFormat decimalFormat = new DecimalFormat("#.####");
+	DecimalFormat decimalFormat = new DecimalFormat("#.###");
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private Font font;
@@ -112,6 +112,7 @@ public class CurrencyCovert extends JFrame {
 	public CurrencyCovert() {
 		usingCustomFonts();
 		readApi("VND"); 
+		
 		setTitle("Currency Convert");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 374);
@@ -193,8 +194,12 @@ public class CurrencyCovert extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
+                	readApi((String) e.getItem());
                     String selectedCurrency = (String) e.getItem();
                     currencyFrom.setText(selectedCurrency);
+                    String currencyTo = (String)cBTo.getSelectedItem();
+                    exchangeRate.setText(decimalFormat.format(ratesMap.get(currencyTo)) + " " + currencyTo);
+            
                 }
             }
         });
@@ -210,7 +215,7 @@ public class CurrencyCovert extends JFrame {
 				try {
 		            double number = Double.parseDouble(amountFrom);
 		            double value = number * ratesMap.get(cBTo.getSelectedItem());
-		            txtTo.setText(String.valueOf(value));
+		            txtTo.setText(String.valueOf(decimalFormat.format(value)));
 		        } catch (NumberFormatException ex) {
 		        	JOptionPane.showMessageDialog(null, "Invalid value!");
 		        }
