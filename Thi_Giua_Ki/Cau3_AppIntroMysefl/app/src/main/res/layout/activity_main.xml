@@ -21,15 +21,16 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView"
-            android:layout_width="370dp"
-            android:layout_height="230dp"
+            android:layout_width="fill_parent"
+            android:layout_height="224dp"
+            android:layout_marginTop="0dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.224"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/thumbnail"
             android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/corner_top"
-            />
+            app:srcCompat="@drawable/thumbnail" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView2"
@@ -40,6 +41,7 @@
             app:layout_constraintHorizontal_bias="0.224"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="centerCrop"
             app:shapeAppearanceOverlay="@style/circular"
             app:srcCompat="@drawable/avatar" />
 
@@ -134,13 +136,33 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
+        android:id="@+id/logout"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="24dp"
+        android:onClick="logout"
         android:background="@drawable/corner_shape_17"
         android:backgroundTint="@color/primary_60"
         android:src="@drawable/arrow_left"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnFace"
+        android:layout_width="296dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/corner_shape_17"
+        android:backgroundTint="@color/primary_20"
+        android:fontFamily="@font/epilogue_bold"
+        android:text="Chuyển tới Facebook"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/logout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
