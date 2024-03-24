@@ -40,6 +40,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
+import java.awt.Panel;
 
 
 public class CurrencyCovert extends JFrame {
@@ -131,7 +132,7 @@ public class CurrencyCovert extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JTextField txtFrom = new RoundedText();
-		txtFrom.setBounds(48, 195, 187, 33);
+		txtFrom.setBounds(25, 188, 187, 33);
 		txtFrom.setFont(font.deriveFont(16f));
 		
 		txtFrom.setBorder(new EmptyBorder(4, 24, 0, 16));
@@ -139,13 +140,13 @@ public class CurrencyCovert extends JFrame {
 		
 		RoundedText txtTo = new RoundedText();
 		txtTo.setEditable(false);
-		txtTo.setBounds(464, 194, 187, 33);
+		txtTo.setBounds(477, 188, 187, 33);
 		txtTo.setFont(font.deriveFont(16f));
 		txtTo.setBorder(new EmptyBorder(4, 24, 0, 16));
 		contentPane.add(txtTo);
 		
 		JPanel panelConvert = new RoundedPanel();
-		panelConvert.setBounds(253, 188, 194, 40);
+		panelConvert.setBounds(253, 181, 194, 40);
 		contentPane.add(panelConvert);
 		panelConvert.setLayout(null);
 		
@@ -178,7 +179,7 @@ public class CurrencyCovert extends JFrame {
 		
 		RoundedComboBox<String> cBTo = new RoundedComboBox();
 		cBTo.setModel(new DefaultComboBoxModel<String>(currencyNames));
-		cBTo.setBounds(464, 114, 187, 58);
+		cBTo.setBounds(477, 102, 187, 58);
 		cBTo.setBorder(new EmptyBorder(6, 24, 0, 4));
 		cBTo.setFont(font.deriveFont(20f));
 		contentPane.add(cBTo);
@@ -196,7 +197,7 @@ public class CurrencyCovert extends JFrame {
 		RoundedComboBox<String> cBFrom = new RoundedComboBox();
 		cBFrom.setModel(new DefaultComboBoxModel<String>(currencyNames));
 		cBFrom.setFont(font.deriveFont(20f));
-		cBFrom.setBounds(48, 114, 187, 58);
+		cBFrom.setBounds(25, 102, 187, 58);
 		cBFrom.setBorder(new EmptyBorder(6, 24, 0, 4));
 		contentPane.add(cBFrom);
 		cBFrom.addItemListener(new ItemListener() {
@@ -237,5 +238,15 @@ public class CurrencyCovert extends JFrame {
 		btnCovert.setFont(font.deriveFont(32f));
 		btnCovert.setBorder(new EmptyBorder(6, 0, 0, 0));
 		contentPane.add(btnCovert);
+		
+		Panel panel = new Panel();
+		panel.setBackground(new Color(194, 181, 234));
+		panel.setBounds(220, 132, 90, 2);
+		contentPane.add(panel);
+		
+		Panel panel_1 = new Panel();
+		panel_1.setBackground(new Color(194, 181, 234));
+		panel_1.setBounds(381, 132, 90, 2);
+		contentPane.add(panel_1);
 	}
 }
