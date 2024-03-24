@@ -176,9 +176,10 @@ public class CurrencyCovert extends JFrame {
 		
 		
 		
-		JComboBox<String> cBTo = new RoundedComboBox();
+		RoundedComboBox<String> cBTo = new RoundedComboBox();
 		cBTo.setModel(new DefaultComboBoxModel<String>(currencyNames));
 		cBTo.setBounds(464, 114, 187, 58);
+		cBTo.setBorder(new EmptyBorder(6, 24, 0, 4));
 		cBTo.setFont(font.deriveFont(20f));
 		contentPane.add(cBTo);
 		cBTo.addItemListener(new ItemListener() {
@@ -186,15 +187,17 @@ public class CurrencyCovert extends JFrame {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String selectedCurrency = (String) e.getItem();
+                    cBTo.setLabeText(selectedCurrency);
                     exchangeRate.setText(decimalFormat.format(ratesMap.get(selectedCurrency)) + " " + selectedCurrency);
                 }
             }
         });
 		
-		JComboBox<String> cBFrom = new RoundedComboBox();
+		RoundedComboBox<String> cBFrom = new RoundedComboBox();
 		cBFrom.setModel(new DefaultComboBoxModel<String>(currencyNames));
 		cBFrom.setFont(font.deriveFont(20f));
 		cBFrom.setBounds(48, 114, 187, 58);
+		cBFrom.setBorder(new EmptyBorder(6, 24, 0, 4));
 		contentPane.add(cBFrom);
 		cBFrom.addItemListener(new ItemListener() {
             @Override
@@ -202,6 +205,7 @@ public class CurrencyCovert extends JFrame {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
 //                	readApi((String) e.getItem());
                     String selectedCurrency = (String) e.getItem();
+                    cBFrom.setLabeText(selectedCurrency);
                     currencyFrom.setText(selectedCurrency);
                     String currencyTo = (String)cBTo.getSelectedItem();
                     exchangeRate.setText(decimalFormat.format(ratesMap.get(currencyTo)) + " " + currencyTo);

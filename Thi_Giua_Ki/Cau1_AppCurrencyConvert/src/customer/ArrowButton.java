@@ -33,7 +33,7 @@ public class ArrowButton extends JButton{
     protected void paintComponent(Graphics g) {
         if (!isOpaque()) {
             Graphics2D g2d = (Graphics2D) g;
-            icon.paintIcon(this, g2d, this.getWidth() / 2 - icon.getIconWidth() / 2 , this.getHeight() / 2 - icon.getIconHeight() / 2 );
+            icon.paintIcon(this, g2d, this.getWidth() / 2 - icon.getIconWidth() / 2 , this.getHeight() / 2 - icon.getIconHeight() / 2 - 3);
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setColor(fill);
         }
