@@ -115,7 +115,7 @@ public class CurrencyCovert extends JFrame {
 	
 	public CurrencyCovert() {
 		usingCustomFonts();
-	//	readApi("VND"); 
+		readApi("VND"); 
 		
 		setTitle("Currency Convert");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -205,7 +205,7 @@ public class CurrencyCovert extends JFrame {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-//                	readApi((String) e.getItem());
+                	readApi((String) e.getItem());
                     String selectedCurrency = (String) e.getItem();
                     cBFrom.setLabeText(selectedCurrency);
                     currencyFrom.setText(selectedCurrency);
@@ -243,8 +243,12 @@ public class CurrencyCovert extends JFrame {
 		JButton exchange = new IconButton(getClass().getResource("switch-horizontal-02.png"));
 		exchange.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String currencyTo = (String)cBTo.getSelectedItem();
+				String currencyFrom = (String)cBFrom.getSelectedItem();
+				System.out.print(currencyFrom);
+				cBFrom.setSelectedItem(currencyTo);
+				cBTo.setSelectedItem(currencyFrom);
 				
-					
 			}
 		});
 		exchange.setBounds(305, 102, 82, 61);
