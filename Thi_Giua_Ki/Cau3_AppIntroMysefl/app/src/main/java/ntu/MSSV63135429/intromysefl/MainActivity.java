@@ -3,7 +3,7 @@ package ntu.MSSV63135429.intromysefl;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.Button;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,12 +14,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login_activity);
         txtPassword = findViewById(R.id.txtPassword);
         txtUsername = findViewById(R.id.txtUserName);
+
     }
 
-    public void login(){
+    public void login(View view){
         username = txtUsername.getText().toString();
         password = txtPassword.getText().toString();
         if(username.equals("root") && password.equals("123456789")){
