@@ -159,6 +159,7 @@
         android:backgroundTint="@color/primary_20"
         android:fontFamily="@font/epilogue_bold"
         android:text="Chuyển tới Facebook"
+        android:onClick="redirectionFacebook"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="16sp"
