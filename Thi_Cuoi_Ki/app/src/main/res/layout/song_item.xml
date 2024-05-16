@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/corner_4" />
+
+    <TextView
+        android:id="@+id/nameSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="Dấu Mưa"
+        android:textColor="#32323D"
+        app:layout_constraintStart_toEndOf="@+id/thumbnail"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nameArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:text="Quang Hùng MasterD"
+        android:textColor="#a0a0a0"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/thumbnail"
+        app:layout_constraintTop_toBottomOf="@+id/nameSong" />
+</androidx.constraintlayout.widget.ConstraintLayout>
