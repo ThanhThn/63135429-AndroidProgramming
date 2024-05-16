@@ -18,6 +18,7 @@ import okhttp3.Response;
 
 public class ZingMP3Api {
     String VERSION, API_KEY, CTIME, URL, SECRET_KEY;
+    static ZingMP3Api mp3Api;
 
     public ZingMP3Api(String VERSION, String API_KEY, String CTIME, String URL, String SECRET_KEY) {
         this.VERSION = VERSION;
@@ -27,7 +28,7 @@ public class ZingMP3Api {
         this.SECRET_KEY = SECRET_KEY;
     }
 
-    public ZingMP3Api() {
+    private ZingMP3Api() {
         this.VERSION = "1.10.28";
         this.API_KEY = "88265e23d4284f25963e6eedac8fbfa3";
         this.URL = "https://zingmp3.vn";
@@ -35,6 +36,12 @@ public class ZingMP3Api {
         this.SECRET_KEY = "2aa2d1c561e809b267f3638c4a307aab";
     }
 
+    static public ZingMP3Api getInstance(){
+        if(mp3Api == null){
+            mp3Api = new ZingMP3Api();
+        }
+        return mp3Api;
+    }
     private String getHash256(String str) throws NoSuchAlgorithmException{
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(str.getBytes());
