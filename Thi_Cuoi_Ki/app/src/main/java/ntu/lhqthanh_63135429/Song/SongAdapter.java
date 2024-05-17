@@ -1,5 +1,6 @@
 package ntu.lhqthanh_63135429.Song;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ntu.lhqthanh_63135429.thi_cuoi_ki.AdapterRecycleView;
+import ntu.lhqthanh_63135429.thi_cuoi_ki.PlayActivity;
 import ntu.lhqthanh_63135429.thi_cuoi_ki.R;
 
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
@@ -42,6 +44,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
         Song song = listSong.get(position);
         holder.nameSong.setText(song.getNameSong());
         holder.nameArtist.setText(song.getNameArtist());
+        holder.idSong = song.getIdSong();
+        holder.context = mcontext;
         Glide.with(mcontext).load(song.getThumbnail()).fitCenter().into(holder.thumbnail);
     }
 
@@ -51,15 +55,26 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
     }
 
 
-    static class SongHolder extends RecyclerView.ViewHolder{
+    static class SongHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView thumbnail;
         TextView nameSong, nameArtist;
+        String idSong;
+        Context context;
 
         public SongHolder(@NonNull View itemView) {
             super(itemView);
             thumbnail = itemView.findViewById(R.id.thumbnail);
             nameArtist = itemView.findViewById(R.id.nameArtist);
             nameSong = itemView.findViewById(R.id.nameSong);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, PlayActivity.class);
+            intent.putExtra("idSong", idSong);
+            context.startActivity(intent);
+
         }
     }
 }
