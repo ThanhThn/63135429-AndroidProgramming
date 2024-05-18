@@ -2,12 +2,14 @@ package ntu.lhqthanh_63135429.Song;
 
 public class Song {
     String nameSong, nameArtist, thumbnail, idSong;
+    int duration;
 
-    public Song(String nameSong, String nameArtist, String thumbnail, String idSong) {
+    public Song(String nameSong, String nameArtist, String thumbnail, String idSong, int duration) {
         this.nameSong = nameSong;
         this.nameArtist = nameArtist;
         this.thumbnail = thumbnail;
         this.idSong = idSong;
+        this.duration = duration;
     }
 
     public String getNameSong() {
@@ -40,5 +42,13 @@ public class Song {
 
     public void setIdSong(String idSong) {
         this.idSong = idSong;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

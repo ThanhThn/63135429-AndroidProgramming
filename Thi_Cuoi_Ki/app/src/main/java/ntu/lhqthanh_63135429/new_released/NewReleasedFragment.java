@@ -62,11 +62,12 @@ public class NewReleasedFragment extends Fragment {
                 int numberSong = Math.min(listSongAll.size(), 10);
                 for (int i = 0; i < numberSong; i++) {
                     JsonObject obj = listSongAll.get(i).getAsJsonObject();
-                    String thumbnail = obj.get("thumbnail").getAsString();
+                    String thumbnail = obj.get("thumbnailM").getAsString();
                     String nameSong = obj.get("title").getAsString();
                     String nameArtist = obj.get("artistsNames").getAsString();
                     String id = obj.get("encodeId").getAsString();
-                    listSong.add(new Song(nameSong, nameArtist, thumbnail, id));
+                    int duration = obj.get("duration").getAsInt();
+                    listSong.add(new Song(nameSong, nameArtist, thumbnail, id, duration));
                 }
             }
         } catch (Exception e) {

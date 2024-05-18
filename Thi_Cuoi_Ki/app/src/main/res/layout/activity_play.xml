@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:layout_constraintTop_toBottomOf="@+id/progressMusic"
         app:srcCompat="@drawable/pause" />
 
     <ImageButton
@@ -51,7 +51,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="39dp"
         android:layout_marginEnd="24dp"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/open_sans_bold"
         android:text="TextView"
         android:textColor="#FFF"
         android:textSize="24sp"
@@ -66,7 +66,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
-        android:fontFamily="@font/roboto_medium"
+        android:fontFamily="@font/open_sans_semibold"
         android:text="TextView"
         android:textColor="#A5A5A5"
         android:textSize="16sp"
@@ -74,15 +74,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/songName" />
 
-    <SeekBar
-        android:id="@+id/seekBar"
+    <ProgressBar
+        android:id="@+id/progressMusic"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="24dp"
+        android:progressDrawable="@drawable/bg_progress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/artistName" />
+
+    <TextView
+        android:id="@+id/statusTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:fontFamily="@font/open_sans"
+        android:text="TextView"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressMusic" />
+
+    <TextView
+        android:id="@+id/maxTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="TextView"
+        android:textColor="#FFF"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressMusic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

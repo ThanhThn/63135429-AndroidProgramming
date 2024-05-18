@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navHome"
+        android:title="Home"
+        android:fontFamily="@font/open_sans_semibold"
+        />
+    <item
+        android:id="@+id/navTop100"
+        android:title="Top 100"
+        android:fontFamily="@font/open_sans_semibold"
+        />
+</menu>

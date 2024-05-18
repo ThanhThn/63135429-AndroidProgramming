@@ -3,28 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp">
+    android:layout_height="wrap_content"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/thumbnail"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/corner_4" />
+        app:shapeAppearanceOverlay="@style/corner_8" />
 
     <TextView
         android:id="@+id/nameSong"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:fontFamily="@font/roboto_bold"
+        android:fontFamily="@font/open_sans_semibold"
         android:text="Dấu Mưa"
-        android:textColor="#32323D"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:textColor="#FFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/thumbnail"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,9 +38,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
+        android:fontFamily="@font/open_sans"
         android:text="Quang Hùng MasterD"
-        android:textColor="#a0a0a0"
-        android:textSize="12sp"
+        android:textAlignment="viewEnd"
+        android:textColor="#A5A5A5"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/thumbnail"
         app:layout_constraintTop_toBottomOf="@+id/nameSong" />
 </androidx.constraintlayout.widget.ConstraintLayout>
