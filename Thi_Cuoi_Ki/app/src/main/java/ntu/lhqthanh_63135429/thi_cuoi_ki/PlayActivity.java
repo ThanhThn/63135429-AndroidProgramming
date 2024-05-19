@@ -25,10 +25,11 @@ import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 
+import ntu.lhqthanh_63135429.Song.Song;
 import ntu.lhqthanh_63135429.api.ZingMP3Api;
 
 public class PlayActivity extends AppCompatActivity {
-    ImageButton playButton, backButton;
+    ImageButton playButton, backButton, prevButton, nextButton;
     ImageView cdImage;
     TextView songName, artistsName, txtStatusTime, txtMaxTime;
     ProgressBar progressMusic;
@@ -42,6 +43,7 @@ public class PlayActivity extends AppCompatActivity {
     Handler handler = new Handler();
     Date statusTime = new Date();
     String strStatusTime = "00:00";
+    Song prev, next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
         backButton = findViewById(R.id.backButton);
         playButton = findViewById(R.id.playButton);
+        prevButton = findViewById(R.id.prevButton);
+        nextButton = findViewById(R.id.nextButton);
         cdImage = findViewById(R.id.imageThumbnail);
         songName = findViewById(R.id.songName);
         artistsName = findViewById(R.id.artistName);
@@ -57,6 +61,19 @@ public class PlayActivity extends AppCompatActivity {
         txtMaxTime = findViewById(R.id.maxTime);
 
         Intent intent = getIntent();
+
+        prev = (Song) intent.getSerializableExtra("prevSong");
+        next = (Song) intent.getSerializableExtra("nextSong");
+
+        if(next == null){
+            nextButton.setAlpha(0.3f);
+            nextButton.setEnabled(false);
+        }
+        if(prev == null){
+            prevButton.setAlpha(0.3f);
+            prevButton.setEnabled(false);
+        }
+
         String idSong = intent.getStringExtra("idSong");
         songName.setText(intent.getStringExtra("nameSong"));
         artistsName.setText(intent.getStringExtra("nameArtist"));
@@ -134,6 +151,45 @@ public class PlayActivity extends AppCompatActivity {
                     mediaPlayer.stop();
                 }
                 mediaPlayer.release();
+                finish();
+            }
+        });
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+                mediaPlayer.release();
+                Intent nextSongIntent = new Intent(PlayActivity.this, PlayActivity.class);
+                nextSongIntent.putExtra("idSong", next.getIdSong());
+                nextSongIntent.putExtra("nameSong", next.getNameSong());
+                nextSongIntent.putExtra("nameArtist", next.getNameArtist());
+                nextSongIntent.putExtra("duration", next.getDuration());
+                nextSongIntent.putExtra("thumbnail", next.getThumbnail());
+                nextSongIntent.putExtra("nextSong", next.getNextSong());
+                nextSongIntent.putExtra("prevSong", next.getPrevSong());
+                startActivity(nextSongIntent);
+                finish();
+            }
+        });
+        prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+                mediaPlayer.release();
+                Intent prevSongIntent = new Intent(PlayActivity.this, PlayActivity.class);
+                prevSongIntent.putExtra("idSong", prev.getIdSong());
+                prevSongIntent.putExtra("nameSong", prev.getNameSong());
+                prevSongIntent.putExtra("nameArtist", prev.getNameArtist());
+                prevSongIntent.putExtra("duration", prev.getDuration());
+                prevSongIntent.putExtra("thumbnail", prev.getThumbnail());
+                prevSongIntent.putExtra("nextSong", prev.getNextSong());
+                prevSongIntent.putExtra("prevSong", prev.getPrevSong());
+                startActivity(prevSongIntent);
                 finish();
             }
         });

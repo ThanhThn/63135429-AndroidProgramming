@@ -1,15 +1,19 @@
 package ntu.lhqthanh_63135429.Song;
 
-public class Song {
+import java.io.Serializable;
+
+public class Song implements Serializable {
     String nameSong, nameArtist, thumbnail, idSong;
     int duration;
+    Song nextSong = null, prevSong;
 
-    public Song(String nameSong, String nameArtist, String thumbnail, String idSong, int duration) {
+    public Song(String nameSong, String nameArtist, String thumbnail, String idSong, int duration, Song prevSong) {
         this.nameSong = nameSong;
         this.nameArtist = nameArtist;
         this.thumbnail = thumbnail;
         this.idSong = idSong;
         this.duration = duration;
+        this.prevSong = prevSong;
     }
 
     public String getNameSong() {
@@ -50,5 +54,21 @@ public class Song {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public Song getNextSong() {
+        return nextSong;
+    }
+
+    public void setNextSong(Song nextSong) {
+        this.nextSong = nextSong;
+    }
+
+    public Song getPrevSong() {
+        return prevSong;
+    }
+
+    public void setPrevSong(Song prevSong) {
+        this.prevSong = prevSong;
     }
 }

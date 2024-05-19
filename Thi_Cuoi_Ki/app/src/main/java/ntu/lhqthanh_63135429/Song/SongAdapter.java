@@ -48,6 +48,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
         holder.urlThumbnail = song.getThumbnail();
         holder.duration = song.getDuration();
         holder.context = mcontext;
+        holder.prevSong = song.getPrevSong();
+        holder.nextSong = song.getNextSong();
         Glide.with(mcontext).load(song.getThumbnail()).fitCenter().into(holder.thumbnail);
     }
 
@@ -62,6 +64,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
         TextView nameSong, nameArtist;
         String idSong, urlThumbnail;
         int duration;
+        Song prevSong, nextSong;
         Context context;
 
         public SongHolder(@NonNull View itemView) {
@@ -80,6 +83,8 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
             intent.putExtra("nameArtist", nameArtist.getText().toString());
             intent.putExtra("thumbnail", urlThumbnail);
             intent.putExtra("duration", duration);
+            intent.putExtra("nextSong", nextSong);
+            intent.putExtra("prevSong", prevSong);
             context.startActivity(intent);
         }
     }

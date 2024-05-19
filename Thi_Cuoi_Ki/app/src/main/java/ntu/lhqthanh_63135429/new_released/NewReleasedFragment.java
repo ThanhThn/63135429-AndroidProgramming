@@ -60,6 +60,8 @@ public class NewReleasedFragment extends Fragment {
                 JsonObject category = newReleased.get("items").getAsJsonObject();
                 JsonArray listSongAll = category.get("all").getAsJsonArray();
                 int numberSong = Math.min(listSongAll.size(), 10);
+                Song prevSong = null;
+                Song currentSong = null;
                 for (int i = 0; i < numberSong; i++) {
                     JsonObject obj = listSongAll.get(i).getAsJsonObject();
                     String thumbnail = obj.get("thumbnailM").getAsString();
@@ -67,7 +69,10 @@ public class NewReleasedFragment extends Fragment {
                     String nameArtist = obj.get("artistsNames").getAsString();
                     String id = obj.get("encodeId").getAsString();
                     int duration = obj.get("duration").getAsInt();
-                    listSong.add(new Song(nameSong, nameArtist, thumbnail, id, duration));
+                    currentSong = new Song(nameSong, nameArtist, thumbnail, id, duration, prevSong);
+                    if(i > 0) listSong.get(i - 1).setNextSong(currentSong);
+                    listSong.add(currentSong);
+                    prevSong = currentSong;
                 }
             }
         } catch (Exception e) {
