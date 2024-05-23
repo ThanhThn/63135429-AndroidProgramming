@@ -44,12 +44,14 @@ public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.
         return fragmentList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         FrameLayout fragmentContainer;
+        boolean isFragmentAdded = false;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             fragmentContainer = itemView.findViewById(R.id.frameItem);
         }
+
     }
 }

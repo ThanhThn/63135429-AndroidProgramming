@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/thumbnailTop"
+        android:layout_width="0dp"
+        android:layout_height="202dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/corner_16"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/nameTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/open_sans_semibold"
+        android:text="TextView"
+        android:textColor="#fffe"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/thumbnailTop"
+        app:layout_constraintTop_toBottomOf="@+id/thumbnailTop" />
+
+    <TextView
+        android:id="@+id/nameArtists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/open_sans"
+        android:text="TextView"
+        android:textColor="#A5A5A5"
+        app:layout_constraintStart_toStartOf="@+id/nameTop"
+        app:layout_constraintTop_toBottomOf="@+id/nameTop" />
+</androidx.constraintlayout.widget.ConstraintLayout>

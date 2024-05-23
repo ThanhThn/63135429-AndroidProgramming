@@ -3,11 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:icon="@drawable/home"
         android:id="@+id/navHome"
         android:title="Home"
         android:fontFamily="@font/open_sans_semibold"
         />
     <item
+        android:icon="@drawable/rating"
         android:id="@+id/navTop100"
         android:title="Top 100"
         android:fontFamily="@font/open_sans_semibold"
