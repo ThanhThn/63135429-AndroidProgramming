@@ -13,9 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.ViewHolder> {
+import ntu.lhqthanh_63135429.EmptyViewHolder;
+
+public class AdapterRecycleView extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Fragment> fragmentList;
     private FragmentManager fragmentManager;
+    private static final int VIEW_TYPE_EMPTY = 0;
+    private static final int VIEW_TYPE_NORMAL = 1;
+
 
     public AdapterRecycleView(List<Fragment> fragmentList, Context context, FragmentManager fragmentManager) {
         this.fragmentList = fragmentList;
@@ -24,19 +29,38 @@ public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.frame_item, parent, false);
-        return new ViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        if(viewType == VIEW_TYPE_EMPTY ){
+            View view = inflater.inflate(R.layout.empty_item,parent, false);
+            return new EmptyViewHolder(view);
+        }else {
+            View view = inflater.inflate(R.layout.frame_item, parent, false);
+            return new ViewHolderHome(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Fragment fragment = fragmentList.get(position);
-        int fragmentContainerId = View.generateViewId();
-        holder.fragmentContainer.setId(fragmentContainerId);
-        fragmentManager.beginTransaction()
-                .replace(fragmentContainerId, fragment)
-                .commit();
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof EmptyViewHolder) {} else {
+            Fragment fragment = fragmentList.get(position);
+            ViewHolderHome holderHome = (ViewHolderHome) holder;
+            int fragmentContainerId = View.generateViewId();
+            holderHome.fragmentContainer.setId(fragmentContainerId);
+            fragmentManager.beginTransaction()
+                    .replace(fragmentContainerId, fragment)
+                    .commit();
+        }
+    }
+
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == fragmentList.size() - 1) {
+            return VIEW_TYPE_EMPTY;
+        } else {
+            return VIEW_TYPE_NORMAL;
+        }
     }
 
     @Override
@@ -44,11 +68,10 @@ public class AdapterRecycleView extends RecyclerView.Adapter<AdapterRecycleView.
         return fragmentList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolderHome extends RecyclerView.ViewHolder {
         FrameLayout fragmentContainer;
-        boolean isFragmentAdded = false;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolderHome(@NonNull View itemView) {
             super(itemView);
             fragmentContainer = itemView.findViewById(R.id.frameItem);
         }

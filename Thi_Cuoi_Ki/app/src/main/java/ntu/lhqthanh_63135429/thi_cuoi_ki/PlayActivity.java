@@ -7,9 +7,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -20,9 +17,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.util.Calendar;
 import java.util.Date;
 
 import ntu.lhqthanh_63135429.Song.Song;
@@ -54,7 +48,7 @@ public class PlayActivity extends AppCompatActivity {
         prevButton = findViewById(R.id.prevButton);
         nextButton = findViewById(R.id.nextButton);
         cdImage = findViewById(R.id.imageThumbnail);
-        songName = findViewById(R.id.songName);
+        songName = findViewById(R.id.topName);
         artistsName = findViewById(R.id.artistName);
         progressMusic = findViewById(R.id.progressMusic);
         txtStatusTime = findViewById(R.id.statusTime);

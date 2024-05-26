@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
         fragmentListHome = new ArrayList<>();
         fragmentListHome.add(new SilderFragment());
         fragmentListHome.add(new NewReleasedFragment());
+        fragmentListHome.add(new Fragment());
 
         recyclerView = view.findViewById(R.id.HomeRecyclerView);
         RecyclerView.LayoutManager linear = new LinearLayoutManager(getActivity());

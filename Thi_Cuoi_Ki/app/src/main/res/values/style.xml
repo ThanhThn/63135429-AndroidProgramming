@@ -10,12 +10,16 @@
         <item name="cornerSize">16dp</item>
     </style>
     <style name="circular">
-        <item name="cornerSize">50%</item></style>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="bottom_corner">
+        <item name="cornerSizeBottomLeft">24dp</item>
+        <item name="cornerSizeBottomRight">24dp</item>
+    </style>
 
     <style name="BottomNavigationTextStyle" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">@font/open_sans_semibold</item>
         <item name="android:textSize">16sp</item>
     </style>
-    
     <dimen name="spacing_2">2dp</dimen>
 </resources>
