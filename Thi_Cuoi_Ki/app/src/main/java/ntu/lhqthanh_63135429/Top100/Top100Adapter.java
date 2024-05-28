@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import ntu.lhqthanh_63135429.thi_cuoi_ki.R;
-import ntu.lhqthanh_63135429.thi_cuoi_ki.TopActivity;
+import ntu.lhqthanh_63135429.thi_cuoi_ki.PlaylistActivity;
 
 public class Top100Adapter extends RecyclerView.Adapter<Top100Adapter.Top100Holder> {
 
@@ -44,8 +44,6 @@ public class Top100Adapter extends RecyclerView.Adapter<Top100Adapter.Top100Hold
         holder.context = context;
         holder.id = top100.getIdTop();
         holder.urlThumbnail = top100.getThumbnail();
-        holder.topName = top100.getNameTop();
-        holder.artists = top100.getNameArtist();
         Glide.with(context).load(top100.getThumbnail()).fitCenter().into(holder.thumbnail);
     }
 
@@ -58,7 +56,7 @@ public class Top100Adapter extends RecyclerView.Adapter<Top100Adapter.Top100Hold
         ImageView thumbnail;
         TextView nameTop, nameArtists;
         Context context;
-        String urlThumbnail, topName, artists, id;
+        String urlThumbnail, id;
         public Top100Holder(@NonNull View itemView) {
             super(itemView);
             thumbnail = itemView.findViewById(R.id.thumbnailTop);
@@ -69,10 +67,8 @@ public class Top100Adapter extends RecyclerView.Adapter<Top100Adapter.Top100Hold
 
         @Override
         public void onClick(View v){
-            Intent intent = new Intent(context, TopActivity.class);
+            Intent intent = new Intent(context, PlaylistActivity.class);
             intent.putExtra("thumbnail", urlThumbnail);
-            intent.putExtra("name", topName);
-            intent.putExtra("artists", artists);
             intent.putExtra("id", id);
             context.startActivity(intent);
         }

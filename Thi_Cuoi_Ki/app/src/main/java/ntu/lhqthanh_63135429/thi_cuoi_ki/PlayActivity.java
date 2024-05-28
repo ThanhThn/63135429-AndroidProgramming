@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -30,6 +31,7 @@ public class PlayActivity extends AppCompatActivity {
     boolean isPlaying = true;
     boolean completed = false;
     volatile boolean isPaused = false;
+    boolean isRepeat;
     ZingMP3Api api = ZingMP3Api.getInstance();
     int maxProgress;
     int progressStatus = 0;
@@ -99,9 +101,21 @@ public class PlayActivity extends AppCompatActivity {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                playButton.setImageResource(R.drawable.play);
-                isPlaying = false;
-                completed = true;
+                if(isRepeat){
+                    progressStatus = 0;
+                    progressMusic.setProgress(0);
+                    statusTime.setMinutes(0);
+                    statusTime.setSeconds(0);
+                    txtStatusTime.setText("00:00");
+                    mediaPlayer.seekTo(0);
+                    mediaPlayer.start();
+                    completed = false;
+                }else {
+                    playButton.setImageResource(R.drawable.play);
+                    isPlaying = false;
+                    isPaused = true;
+                    completed = true;
+                }
             }
         });
         try {
@@ -150,7 +164,7 @@ public class PlayActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        isRepeat = intent.hasExtra("repeat")? intent.getBooleanExtra("repeat", false) : false;
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,6 +180,7 @@ public class PlayActivity extends AppCompatActivity {
                 nextSongIntent.putExtra("thumbnail", next.getThumbnail());
                 nextSongIntent.putExtra("nextSong", next.getNextSong());
                 nextSongIntent.putExtra("prevSong", next.getPrevSong());
+                nextSongIntent.putExtra("repeat", isRepeat);
                 startActivity(nextSongIntent);
                 finish();
             }
@@ -185,6 +200,7 @@ public class PlayActivity extends AppCompatActivity {
                 prevSongIntent.putExtra("thumbnail", prev.getThumbnail());
                 prevSongIntent.putExtra("nextSong", prev.getNextSong());
                 prevSongIntent.putExtra("prevSong", prev.getPrevSong());
+                prevSongIntent.putExtra("repeat", isRepeat);
                 startActivity(prevSongIntent);
                 finish();
             }
@@ -196,18 +212,49 @@ public class PlayActivity extends AppCompatActivity {
                 shuffleButton.setAlpha(1f);
             }
         });
+
+        if(isRepeat){
+            repeatButton.setAlpha(1f);
+        }else {
+            repeatButton.setAlpha(0.3f);
+        }
         repeatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                repeatButton.setAlpha(1f);
+                if(isRepeat){
+                    repeatButton.setAlpha(0.3f);
+                }else {
+                    repeatButton.setAlpha(1f);
+                }
+                isRepeat = !isRepeat;
             }
         });
 
         progressMusic.setMax(maxProgress);
+        progressMusic.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN) {
+                    int width = progressMusic.getWidth();
+                    int x = event.getX() > width? width : (int) event.getX();
+                    int progress = (int) (x / (float) width * progressMusic.getMax());
+                    if(x != width) completed = false;
+                    progressStatus = progress;
+                    progressMusic.setProgress(progressStatus);
+                    mediaPlayer.seekTo(progress * 1000);
+                    statusTime.setSeconds(progressStatus % 60);
+                    statusTime.setMinutes(progressStatus / 60);
+                    strStatusTime = String.format("%02d:%02d", statusTime.getMinutes(), statusTime.getSeconds());
+                    txtStatusTime.setText(strStatusTime);
+                    return true;
+                }
+                return false;
+            }
+        });
         handler.post(updateTimeRunnable);
     }
 
-    private Runnable updateTimeRunnable = new Runnable() {
+    private final Runnable updateTimeRunnable = new Runnable() {
         @Override
         public void run() {
                 if (progressStatus < maxProgress && !isPaused) {

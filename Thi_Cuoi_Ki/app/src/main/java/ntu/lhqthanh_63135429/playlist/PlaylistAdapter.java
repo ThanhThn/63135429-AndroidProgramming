@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import ntu.lhqthanh_63135429.thi_cuoi_ki.R;
-import ntu.lhqthanh_63135429.thi_cuoi_ki.TopActivity;
+import ntu.lhqthanh_63135429.thi_cuoi_ki.PlaylistActivity;
 
 public class PlaylistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -68,10 +68,8 @@ public class PlaylistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(context, TopActivity.class);
+            Intent intent = new Intent(context, PlaylistActivity.class);
             intent.putExtra("thumbnail", urlThumbnail);
-            intent.putExtra("name", title.getText().toString());
-            intent.putExtra("artists", artists.getText().toString());
             intent.putExtra("id", id);
             context.startActivity(intent);
         }

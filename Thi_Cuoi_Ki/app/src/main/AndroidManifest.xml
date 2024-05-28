@@ -19,7 +19,7 @@
             android:name="ntu.lhqthanh_63135429.search.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".TopActivity"
+            android:name=".PlaylistActivity"
             android:exported="false" />
         <activity
             android:name=".PlayActivity"

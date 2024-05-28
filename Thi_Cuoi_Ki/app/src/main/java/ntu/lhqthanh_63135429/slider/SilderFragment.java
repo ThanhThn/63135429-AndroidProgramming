@@ -22,6 +22,11 @@ import ntu.lhqthanh_63135429.thi_cuoi_ki.R;
 
 public class SilderFragment extends Fragment {
     ZingMP3Api api = ZingMP3Api.getInstance();
+    List<SliderData> list;
+
+    public SilderFragment (List<SliderData> list){
+        this.list = list;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,28 +36,8 @@ public class SilderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View mView = inflater.inflate(R.layout.fragment_silder, container, false);
-        List<SliderData> imageList = new ArrayList<>();
-        try {
-            String str = api.getHome();
-            JsonElement element = JsonParser.parseString(str);
-            JsonObject object = element.getAsJsonObject();
-            JsonObject data = object.get("data").getAsJsonObject();
-            JsonArray items = data.get("items").getAsJsonArray();
-            if (items.size() > 0) {
-                JsonObject banner = items.get(0).getAsJsonObject();
-                JsonArray itemsBanner = banner.get("items").getAsJsonArray();
-                for (int i = 0; i < itemsBanner.size(); i++) {
-                    JsonObject obj = itemsBanner.get(i).getAsJsonObject();
-                    String bannerName = obj.get("banner").getAsString();
-                    String id = obj.get("encodeId").getAsString();
-                    imageList.add(new SliderData(id, bannerName));
-                }
-            }
-        }catch (Exception e){
-            System.out.printf(e.toString());
-        }
         SliderView imageSlider = mView.findViewById(R.id.slider);
-        SliderAdapter adapterSlider = new SliderAdapter(imageList, getActivity());
+        SliderAdapter adapterSlider = new SliderAdapter(list, getActivity());
         imageSlider.setSliderAdapter(adapterSlider);
         imageSlider.setAutoCycleDirection(SliderView.LAYOUT_DIRECTION_LTR);
         imageSlider.setScrollTimeInSec(3);
