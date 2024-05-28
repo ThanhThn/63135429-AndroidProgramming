@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ntu.lhqthanh_63135429.EmptyViewHolder;
-import ntu.lhqthanh_63135429.thi_cuoi_ki.AdapterRecycleView;
 import ntu.lhqthanh_63135429.thi_cuoi_ki.R;
 
 public class Top100CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -56,7 +54,7 @@ public class Top100CategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         if(viewType == VIEW_TYPE_EMPTY ){
             View view = inflater.inflate(R.layout.empty_item,parent, false);
-            return new EmptyViewHolder(view);
+            return new EmptyViewHolder(view, 80, context);
         }else {
             View view = inflater.inflate(R.layout.top100_category_item, parent, false);
             return new TopCategoryHolder(view);
@@ -98,7 +96,7 @@ public class Top100CategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         int number;
         public TopCategoryHolder(@NonNull View itemView) {
             super(itemView);
-            nameCategoryTop = itemView.findViewById(R.id.nameCategoryTop);
+            nameCategoryTop = itemView.findViewById(R.id.titleSong);
             topCategory = itemView.findViewById(R.id.topCategory);
             layout = (ConstraintLayout) itemView;
         }

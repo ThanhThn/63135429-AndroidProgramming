@@ -2,23 +2,14 @@ package ntu.lhqthanh_63135429.thi_cuoi_ki;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ntu.lhqthanh_63135429.HomeFragment;
 import ntu.lhqthanh_63135429.Top100.Top100Fragment;
-import ntu.lhqthanh_63135429.new_released.NewReleasedFragment;
-import ntu.lhqthanh_63135429.slider.SilderFragment;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNav;

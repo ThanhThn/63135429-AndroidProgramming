@@ -1,19 +1,17 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingStart="15dp"
-    android:paddingEnd="15dp"
-    tools:context="ntu.lhqthanh_63135429.new_released.NewReleasedFragment">
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="15dp"
+    tools:context="ntu.lhqthanh_63135429.playlist.PlaylistFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/nameCategoryTop"
+            android:id="@+id/titlePlaylist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans_semibold"
@@ -25,14 +23,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listNewReleased"
+            android:id="@+id/listPlaylist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameCategoryTop" />
+            app:layout_constraintTop_toBottomOf="@+id/titlePlaylist" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Thi_Cuoi_Ki"
         tools:targetApi="31">
         <activity
+            android:name="ntu.lhqthanh_63135429.search.SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".TopActivity"
             android:exported="false" />
         <activity

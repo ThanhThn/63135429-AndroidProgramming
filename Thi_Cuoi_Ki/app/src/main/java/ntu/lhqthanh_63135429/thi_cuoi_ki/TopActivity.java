@@ -3,6 +3,7 @@ package ntu.lhqthanh_63135429.thi_cuoi_ki;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -42,7 +43,12 @@ public class TopActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Glide.with(this).load(intent.getStringExtra("thumbnail")).fitCenter().into(thumbnail);
         nameTop.setText(intent.getStringExtra("name"));
-        artists.setText(intent.getStringExtra("artists"));
+        String name = intent.getStringExtra("artists");
+        if(name.equals("")){
+            artists.setVisibility(View.INVISIBLE);
+        }{
+            artists.setText(name);
+        }
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,19 +61,8 @@ public class TopActivity extends AppCompatActivity {
         SongAdapter adapter = new SongAdapter(listSong, this);
         songRecyclerView.setLayoutManager(layoutManager);
         songRecyclerView.setAdapter(adapter);
-        songRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-
-                int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
-                int itemCount = layoutManager.getItemCount();
-                if (lastVisibleItemPosition == itemCount - 1) {
-                    recyclerView.smoothScrollToPosition(lastVisibleItemPosition + 1);
-                }
-            }
-        });
+        LinearSnapHelper snapHelper = new LinearSnapHelper();
+        snapHelper.attachToRecyclerView(songRecyclerView);
     }
 
     private ArrayList<Song> fetchSongs(String idTop) {

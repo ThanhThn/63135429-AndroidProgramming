@@ -1,12 +1,9 @@
 package ntu.lhqthanh_63135429.Top100;
 
-import android.graphics.Rect;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,9 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ntu.lhqthanh_63135429.api.ZingMP3Api;
-import ntu.lhqthanh_63135429.new_released.NewReleasedFragment;
-import ntu.lhqthanh_63135429.slider.SilderFragment;
-import ntu.lhqthanh_63135429.thi_cuoi_ki.AdapterRecycleView;
 import ntu.lhqthanh_63135429.thi_cuoi_ki.R;
 
 public class Top100Fragment extends Fragment implements OnImageButtonClickListener{

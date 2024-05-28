@@ -23,7 +23,7 @@ import ntu.lhqthanh_63135429.Song.Song;
 import ntu.lhqthanh_63135429.api.ZingMP3Api;
 
 public class PlayActivity extends AppCompatActivity {
-    ImageButton playButton, backButton, prevButton, nextButton;
+    ImageButton playButton, backButton, prevButton, nextButton, shuffleButton, repeatButton;
     ImageView cdImage;
     TextView songName, artistsName, txtStatusTime, txtMaxTime;
     ProgressBar progressMusic;
@@ -47,6 +47,8 @@ public class PlayActivity extends AppCompatActivity {
         playButton = findViewById(R.id.playButton);
         prevButton = findViewById(R.id.prevButton);
         nextButton = findViewById(R.id.nextButton);
+        shuffleButton = findViewById(R.id.shuffleButton);
+        repeatButton = findViewById(R.id.repeatButton);
         cdImage = findViewById(R.id.imageThumbnail);
         songName = findViewById(R.id.topName);
         artistsName = findViewById(R.id.artistName);
@@ -185,6 +187,19 @@ public class PlayActivity extends AppCompatActivity {
                 prevSongIntent.putExtra("prevSong", prev.getPrevSong());
                 startActivity(prevSongIntent);
                 finish();
+            }
+        });
+
+        shuffleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shuffleButton.setAlpha(1f);
+            }
+        });
+        repeatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                repeatButton.setAlpha(1f);
             }
         });
 

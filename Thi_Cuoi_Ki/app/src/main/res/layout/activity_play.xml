@@ -133,4 +133,28 @@
         app:srcCompat="@drawable/skip_forward"
         />
 
+    <ImageButton
+        android:id="@+id/shuffleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/prevButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/prevButton"
+        app:srcCompat="@drawable/shuffle"
+        android:alpha="0.3"/>
+
+    <ImageButton
+        android:id="@+id/repeatButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/nextButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/nextButton"
+        app:srcCompat="@drawable/repeat"
+        android:alpha="0.3"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
