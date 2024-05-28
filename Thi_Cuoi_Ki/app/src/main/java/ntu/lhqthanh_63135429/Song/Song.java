@@ -1,11 +1,13 @@
 package ntu.lhqthanh_63135429.Song;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Song implements Serializable {
     String nameSong, nameArtist, thumbnail, idSong;
     int duration;
     Song nextSong = null, prevSong;
+    List<Song> list;
 
     public Song(String nameSong, String nameArtist, String thumbnail, String idSong, int duration, Song prevSong) {
         this.nameSong = nameSong;
@@ -70,5 +72,13 @@ public class Song implements Serializable {
 
     public void setPrevSong(Song prevSong) {
         this.prevSong = prevSong;
+    }
+
+    public List<Song> getList() {
+        return list;
+    }
+
+    public void setList(List<Song> list) {
+        this.list = list;
     }
 }

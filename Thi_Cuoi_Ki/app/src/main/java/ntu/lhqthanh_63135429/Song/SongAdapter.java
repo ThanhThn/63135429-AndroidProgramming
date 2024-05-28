@@ -42,6 +42,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
     @Override
     public void onBindViewHolder(@NonNull SongHolder holder, int position) {
         Song song = listSong.get(position);
+        holder.list = listSong;
         holder.nameSong.setText(song.getNameSong());
         holder.nameArtist.setText(song.getNameArtist());
         holder.idSong = song.getIdSong();
@@ -66,6 +67,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
         int duration;
         Song prevSong, nextSong;
         Context context;
+        ArrayList<Song> list;
 
         public SongHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,6 +80,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, PlayActivity.class);
+            intent.putExtra("listSong", list);
             intent.putExtra("idSong", idSong);
             intent.putExtra("nameSong", nameSong.getText().toString());
             intent.putExtra("nameArtist", nameArtist.getText().toString());

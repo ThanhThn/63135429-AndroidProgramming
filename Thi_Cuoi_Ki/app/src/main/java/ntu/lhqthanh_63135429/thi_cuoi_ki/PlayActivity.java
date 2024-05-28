@@ -18,7 +18,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 import ntu.lhqthanh_63135429.Song.Song;
 import ntu.lhqthanh_63135429.api.ZingMP3Api;
@@ -32,6 +34,7 @@ public class PlayActivity extends AppCompatActivity {
     boolean completed = false;
     volatile boolean isPaused = false;
     boolean isRepeat;
+    boolean isShuffle;
     ZingMP3Api api = ZingMP3Api.getInstance();
     int maxProgress;
     int progressStatus = 0;
@@ -111,10 +114,37 @@ public class PlayActivity extends AppCompatActivity {
                     mediaPlayer.start();
                     completed = false;
                 }else {
-                    playButton.setImageResource(R.drawable.play);
-                    isPlaying = false;
-                    isPaused = true;
-                    completed = true;
+                    if(isShuffle){
+                        mediaPlayer.release();
+                        Intent randomSongIntent = new Intent(PlayActivity.this, PlayActivity.class);
+                        ArrayList<Song> listSong = (ArrayList<Song>) intent.getSerializableExtra("listSong");
+                        Random random = new Random();
+                        Song songRandom = null;
+                        while (songRandom == null){
+                            Song song = listSong.get(random.nextInt(listSong.size()));
+                            if(song.getIdSong() != idSong){
+                                songRandom = song;
+                            }
+                        }
+                        randomSongIntent.putExtra("idSong", songRandom.getIdSong());
+                        randomSongIntent.putExtra("nameSong", songRandom.getNameSong());
+                        randomSongIntent.putExtra("nameArtist", songRandom.getNameArtist());
+                        randomSongIntent.putExtra("duration", songRandom.getDuration());
+                        randomSongIntent.putExtra("thumbnail", songRandom.getThumbnail());
+                        randomSongIntent.putExtra("nextSong", songRandom.getNextSong());
+                        randomSongIntent.putExtra("prevSong", songRandom.getPrevSong());
+                        randomSongIntent.putExtra("repeat", isRepeat);
+                        randomSongIntent.putExtra("shuffle", isShuffle);
+                        randomSongIntent.putExtra("listSong", listSong);
+                        startActivity(randomSongIntent);
+                        finish();
+                    }
+                    else {
+                        playButton.setImageResource(R.drawable.play);
+                        isPlaying = false;
+                        isPaused = true;
+                        completed = true;
+                    }
                 }
             }
         });
@@ -165,6 +195,7 @@ public class PlayActivity extends AppCompatActivity {
             }
         });
         isRepeat = intent.hasExtra("repeat")? intent.getBooleanExtra("repeat", false) : false;
+        isShuffle = intent.hasExtra("shuffle")? intent.getBooleanExtra("shuffle", false):false;
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,10 +237,25 @@ public class PlayActivity extends AppCompatActivity {
             }
         });
 
+        if(isShuffle){
+            shuffleButton.setAlpha(1f);
+        }else {
+            shuffleButton.setAlpha(0.3f);
+        }
+
         shuffleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shuffleButton.setAlpha(1f);
+                if(isShuffle){
+                    shuffleButton.setAlpha(0.3f);
+                }else {
+                    shuffleButton.setAlpha(1f);
+                    if(isRepeat){
+                        isRepeat = false;
+                        repeatButton.setAlpha(0.3f);
+                    }
+                }
+                isShuffle = !isShuffle;
             }
         });
 
@@ -225,6 +271,10 @@ public class PlayActivity extends AppCompatActivity {
                     repeatButton.setAlpha(0.3f);
                 }else {
                     repeatButton.setAlpha(1f);
+                    if(isShuffle){
+                        isShuffle = false;
+                        shuffleButton.setAlpha(0.3f);
+                    }
                 }
                 isRepeat = !isRepeat;
             }
