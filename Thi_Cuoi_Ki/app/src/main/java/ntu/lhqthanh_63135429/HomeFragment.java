@@ -85,8 +85,8 @@ public class HomeFragment extends Fragment {
             String nameArtist = obj.get("artistsNames").getAsString();
             String id = obj.get("encodeId").getAsString();
             int duration = obj.get("duration").getAsInt();
-            currentSong = new Song(nameSong, nameArtist, thumbnail, id, duration, prevSong);
-            if(i > 0) listSong.get(i - 1).setNextSong(currentSong);
+            currentSong = new Song(nameSong, nameArtist, thumbnail, id, duration, prevSong != null ? prevSong.getIdSong(): "");
+            if(i > 0) listSong.get(i - 1).setNextSong(currentSong.getIdSong());
             listSong.add(currentSong);
             prevSong = currentSong;
         }

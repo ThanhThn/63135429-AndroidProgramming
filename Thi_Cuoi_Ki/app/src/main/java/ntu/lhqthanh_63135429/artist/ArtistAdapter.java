@@ -42,9 +42,9 @@ public class ArtistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         artistHolder.name.setText(artist.getNameArtist());
         Glide.with(context).load(artist.getUrlThumbnail()).fitCenter().into(artistHolder.avatar);
         artistHolder.id = artist.getIdArtist();
-        artistHolder.playlistId = artist.getPlaylistId();
         artistHolder.context = context;
         artistHolder.urlThumbnail = artist.getUrlThumbnail();
+        artistHolder.follower = artist.getFollower();
     }
 
     @Override
@@ -55,9 +55,10 @@ public class ArtistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     static class ArtistHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView avatar;
         TextView name;
-        String id, playlistId;
+        String id;
         String urlThumbnail;
         Context context;
+        int follower;
 
         public ArtistHolder(@NonNull View itemView) {
             super(itemView);
@@ -68,12 +69,13 @@ public class ArtistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public void onClick(View v){
-            if(!playlistId.equals("")){
-                Intent intent = new Intent(context, PlaylistActivity.class);
-                intent.putExtra("thumbnail", urlThumbnail);
-                intent.putExtra("id", playlistId);
-                context.startActivity(intent);
-            }
+            Intent intent = new Intent(context, PlaylistActivity.class);
+            intent.putExtra("thumbnail", urlThumbnail);
+            intent.putExtra("title", name.getText().toString());
+            intent.putExtra("source", "artist");
+            intent.putExtra("follower", follower);
+            intent.putExtra("id", id);
+            context.startActivity(intent);
         }
     }
 }

@@ -1,13 +1,14 @@
 package ntu.lhqthanh_63135429.artist;
 
 public class Artist {
-    String urlThumbnail, idArtist, nameArtist, playlistId;
+    String urlThumbnail, idArtist, nameArtist;
+    int follower;
 
-    public Artist(String urlThumbnail, String idArtist, String nameArtist, String playlistId) {
+    public Artist(String urlThumbnail, String idArtist, String nameArtist, int follower) {
         this.urlThumbnail = urlThumbnail;
         this.idArtist = idArtist;
         this.nameArtist = nameArtist;
-        this.playlistId = playlistId;
+        this.follower = follower;
     }
 
     public String getUrlThumbnail() {
@@ -34,11 +35,11 @@ public class Artist {
         this.nameArtist = nameArtist;
     }
 
-    public String getPlaylistId() {
-        return playlistId;
+    public int getFollower() {
+        return follower;
     }
 
-    public void setPlaylistId(String playlistId) {
-        this.playlistId = playlistId;
+    public void setFollower(int follower) {
+        this.follower = follower;
     }
 }

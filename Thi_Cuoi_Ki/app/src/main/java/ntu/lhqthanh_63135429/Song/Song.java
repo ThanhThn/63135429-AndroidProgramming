@@ -6,10 +6,9 @@ import java.util.List;
 public class Song implements Serializable {
     String nameSong, nameArtist, thumbnail, idSong;
     int duration;
-    Song nextSong = null, prevSong;
-    List<Song> list;
+    String nextSong = "", prevSong = "";
 
-    public Song(String nameSong, String nameArtist, String thumbnail, String idSong, int duration, Song prevSong) {
+    public Song(String nameSong, String nameArtist, String thumbnail, String idSong, int duration, String prevSong) {
         this.nameSong = nameSong;
         this.nameArtist = nameArtist;
         this.thumbnail = thumbnail;
@@ -58,27 +57,19 @@ public class Song implements Serializable {
         this.duration = duration;
     }
 
-    public Song getNextSong() {
+    public String getNextSong() {
         return nextSong;
     }
 
-    public void setNextSong(Song nextSong) {
+    public void setNextSong(String nextSong) {
         this.nextSong = nextSong;
     }
 
-    public Song getPrevSong() {
+    public String getPrevSong() {
         return prevSong;
     }
 
-    public void setPrevSong(Song prevSong) {
+    public void setPrevSong(String prevSong) {
         this.prevSong = prevSong;
-    }
-
-    public List<Song> getList() {
-        return list;
-    }
-
-    public void setList(List<Song> list) {
-        this.list = list;
     }
 }

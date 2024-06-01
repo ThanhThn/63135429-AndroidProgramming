@@ -1,6 +1,7 @@
 package ntu.lhqthanh_63135429.Song;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +31,6 @@ import ntu.lhqthanh_63135429.thi_cuoi_ki.R;
 public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
     ArrayList<Song> listSong;
     Context mcontext;
-
     public SongAdapter(ArrayList<Song> listSong, Context mcontext) {
         this.listSong = listSong;
         this.mcontext = mcontext;
@@ -65,7 +70,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
         TextView nameSong, nameArtist;
         String idSong, urlThumbnail;
         int duration;
-        Song prevSong, nextSong;
+        String prevSong, nextSong;
         Context context;
         ArrayList<Song> list;
 
@@ -80,7 +85,7 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, PlayActivity.class);
-            intent.putExtra("listSong", list);
+            saveSongList(context, list);
             intent.putExtra("idSong", idSong);
             intent.putExtra("nameSong", nameSong.getText().toString());
             intent.putExtra("nameArtist", nameArtist.getText().toString());
@@ -90,5 +95,16 @@ public class SongAdapter extends RecyclerView.Adapter<SongAdapter.SongHolder> {
             intent.putExtra("prevSong", prevSong);
             context.startActivity(intent);
         }
+        private void saveSongList(Context context, ArrayList<Song> songList) {
+            SharedPreferences prefs = context.getSharedPreferences("dataListSong", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            Gson gson = new Gson();
+            String json = gson.toJson(songList);
+            editor.putString("songList", json);
+
+            editor.apply();
+        }
     }
+
+
 }

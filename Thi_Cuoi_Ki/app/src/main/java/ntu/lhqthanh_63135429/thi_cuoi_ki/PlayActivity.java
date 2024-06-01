@@ -2,10 +2,13 @@ package ntu.lhqthanh_63135429.thi_cuoi_ki;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -14,12 +17,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import ntu.lhqthanh_63135429.Song.Song;
@@ -42,7 +49,7 @@ public class PlayActivity extends AppCompatActivity {
     Handler handler = new Handler();
     Date statusTime = new Date();
     String strStatusTime = "00:00";
-    Song prev, next;
+    String prev, next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +70,24 @@ public class PlayActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        prev = (Song) intent.getSerializableExtra("prevSong");
-        next = (Song) intent.getSerializableExtra("nextSong");
+        prev = intent.getStringExtra("prevSong");
+        next = intent.getStringExtra("nextSong");
 
-        if(next == null){
+        //Lấy danh sách bài hát từ bộ nhớ tạm
+        ArrayList<Song> listSong = getSongList(this);
+
+        if(next.equals("")){
             nextButton.setAlpha(0.3f);
             nextButton.setEnabled(false);
         }
-        if(prev == null){
+        if(prev.equals("")){
             prevButton.setAlpha(0.3f);
             prevButton.setEnabled(false);
+        }
+        if(listSong.size() <= 1){
+            shuffleButton.setAlpha(0.3f);
+            shuffleButton.setEnabled(false);
+            isShuffle = false;
         }
 
         String idSong = intent.getStringExtra("idSong");
@@ -117,12 +132,11 @@ public class PlayActivity extends AppCompatActivity {
                     if(isShuffle){
                         mediaPlayer.release();
                         Intent randomSongIntent = new Intent(PlayActivity.this, PlayActivity.class);
-                        ArrayList<Song> listSong = (ArrayList<Song>) intent.getSerializableExtra("listSong");
                         Random random = new Random();
                         Song songRandom = null;
                         while (songRandom == null){
                             Song song = listSong.get(random.nextInt(listSong.size()));
-                            if(song.getIdSong() != idSong){
+                            if(!song.getIdSong().equals(idSong)){
                                 songRandom = song;
                             }
                         }
@@ -135,7 +149,6 @@ public class PlayActivity extends AppCompatActivity {
                         randomSongIntent.putExtra("prevSong", songRandom.getPrevSong());
                         randomSongIntent.putExtra("repeat", isRepeat);
                         randomSongIntent.putExtra("shuffle", isShuffle);
-                        randomSongIntent.putExtra("listSong", listSong);
                         startActivity(randomSongIntent);
                         finish();
                     }
@@ -204,14 +217,20 @@ public class PlayActivity extends AppCompatActivity {
                 }
                 mediaPlayer.release();
                 Intent nextSongIntent = new Intent(PlayActivity.this, PlayActivity.class);
-                nextSongIntent.putExtra("idSong", next.getIdSong());
-                nextSongIntent.putExtra("nameSong", next.getNameSong());
-                nextSongIntent.putExtra("nameArtist", next.getNameArtist());
-                nextSongIntent.putExtra("duration", next.getDuration());
-                nextSongIntent.putExtra("thumbnail", next.getThumbnail());
-                nextSongIntent.putExtra("nextSong", next.getNextSong());
-                nextSongIntent.putExtra("prevSong", next.getPrevSong());
-                nextSongIntent.putExtra("repeat", isRepeat);
+                for (Song song: listSong) {
+                    if(song.getIdSong().equals(next)){
+                        nextSongIntent.putExtra("idSong", song.getIdSong());
+                        nextSongIntent.putExtra("nameSong", song.getNameSong());
+                        nextSongIntent.putExtra("nameArtist", song.getNameArtist());
+                        nextSongIntent.putExtra("duration", song.getDuration());
+                        nextSongIntent.putExtra("thumbnail", song.getThumbnail());
+                        nextSongIntent.putExtra("nextSong", song.getNextSong());
+                        nextSongIntent.putExtra("prevSong", song.getPrevSong());
+                        nextSongIntent.putExtra("shuffle", isShuffle);
+                        nextSongIntent.putExtra("repeat", isRepeat);
+                        break;
+                    }
+                }
                 startActivity(nextSongIntent);
                 finish();
             }
@@ -224,14 +243,17 @@ public class PlayActivity extends AppCompatActivity {
                 }
                 mediaPlayer.release();
                 Intent prevSongIntent = new Intent(PlayActivity.this, PlayActivity.class);
-                prevSongIntent.putExtra("idSong", prev.getIdSong());
-                prevSongIntent.putExtra("nameSong", prev.getNameSong());
-                prevSongIntent.putExtra("nameArtist", prev.getNameArtist());
-                prevSongIntent.putExtra("duration", prev.getDuration());
-                prevSongIntent.putExtra("thumbnail", prev.getThumbnail());
-                prevSongIntent.putExtra("nextSong", prev.getNextSong());
-                prevSongIntent.putExtra("prevSong", prev.getPrevSong());
-                prevSongIntent.putExtra("repeat", isRepeat);
+                for (Song song: listSong) {
+                    prevSongIntent.putExtra("idSong", song.getIdSong());
+                    prevSongIntent.putExtra("nameSong", song.getNameSong());
+                    prevSongIntent.putExtra("nameArtist", song.getNameArtist());
+                    prevSongIntent.putExtra("duration", song.getDuration());
+                    prevSongIntent.putExtra("thumbnail", song.getThumbnail());
+                    prevSongIntent.putExtra("nextSong", song.getNextSong());
+                    prevSongIntent.putExtra("prevSong", song.getPrevSong());
+                    prevSongIntent.putExtra("shuffle", isShuffle);
+                    prevSongIntent.putExtra("repeat", isRepeat);
+                }
                 startActivity(prevSongIntent);
                 finish();
             }
@@ -286,7 +308,13 @@ public class PlayActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN) {
                     int width = progressMusic.getWidth();
-                    int x = event.getX() > width? width : (int) event.getX();
+                    int x = (int) event.getX();
+                    if (x > width) {
+                        x = width;
+                    }
+                    else if (x < 0) {
+                        x = 0;
+                    }
                     int progress = (int) (x / (float) width * progressMusic.getMax());
                     if(x != width) completed = false;
                     progressStatus = progress;
@@ -327,6 +355,14 @@ public class PlayActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         handler.removeCallbacks(updateTimeRunnable);
+    }
+
+    private ArrayList<Song> getSongList(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("dataListSong", Context.MODE_PRIVATE);
+        String json = prefs.getString("songList", "");
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<Song>>() {}.getType();
+        return gson.fromJson(json, type);
     }
 
 }

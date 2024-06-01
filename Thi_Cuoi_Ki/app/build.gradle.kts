@@ -32,7 +32,6 @@ android {
 }
 
 dependencies {
-    implementation ("com.github.denzcoskun:ImageSlideshow:0.1.2")
     implementation ("com.github.smarteist:autoimageslider:1.3.9")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")

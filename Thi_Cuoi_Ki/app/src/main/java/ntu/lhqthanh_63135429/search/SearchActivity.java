@@ -82,8 +82,8 @@ public class SearchActivity extends AppCompatActivity {
             String nameArtist = obj.get("artistsNames").getAsString();
             String id = obj.get("encodeId").getAsString();
             int duration = obj.get("duration").getAsInt();
-            currentSong = new Song(nameSong, nameArtist, thumbnail, id, duration, prevSong);
-            if(i > 0) list.get(i - 1).setNextSong(currentSong);
+            currentSong = new Song(nameSong, nameArtist, thumbnail, id, duration, prevSong != null ? prevSong.getIdSong(): "");
+            if(i > 0) list.get(i - 1).setNextSong(currentSong.getIdSong());
             list.add(currentSong);
             prevSong = currentSong;
         }
@@ -96,8 +96,8 @@ public class SearchActivity extends AppCompatActivity {
             String thumbnail = obj.get("thumbnailM").getAsString();
             String nameArtist = obj.get("name").getAsString();
             String id = obj.get("id").getAsString();
-            String playlistId = obj.has("playlistId") ? obj.get("playlistId").getAsString() : "";
-            list.add(new Artist(thumbnail, id, nameArtist, playlistId));
+            int follower = obj.get("totalFollow").getAsInt();
+            list.add(new Artist(thumbnail, id, nameArtist, follower));
         }
         return  list;
     }
