@@ -244,15 +244,18 @@ public class PlayActivity extends AppCompatActivity {
                 mediaPlayer.release();
                 Intent prevSongIntent = new Intent(PlayActivity.this, PlayActivity.class);
                 for (Song song: listSong) {
-                    prevSongIntent.putExtra("idSong", song.getIdSong());
-                    prevSongIntent.putExtra("nameSong", song.getNameSong());
-                    prevSongIntent.putExtra("nameArtist", song.getNameArtist());
-                    prevSongIntent.putExtra("duration", song.getDuration());
-                    prevSongIntent.putExtra("thumbnail", song.getThumbnail());
-                    prevSongIntent.putExtra("nextSong", song.getNextSong());
-                    prevSongIntent.putExtra("prevSong", song.getPrevSong());
-                    prevSongIntent.putExtra("shuffle", isShuffle);
-                    prevSongIntent.putExtra("repeat", isRepeat);
+                    if(song.getIdSong().equals(prev)) {
+                        prevSongIntent.putExtra("idSong", song.getIdSong());
+                        prevSongIntent.putExtra("nameSong", song.getNameSong());
+                        prevSongIntent.putExtra("nameArtist", song.getNameArtist());
+                        prevSongIntent.putExtra("duration", song.getDuration());
+                        prevSongIntent.putExtra("thumbnail", song.getThumbnail());
+                        prevSongIntent.putExtra("nextSong", song.getNextSong());
+                        prevSongIntent.putExtra("prevSong", song.getPrevSong());
+                        prevSongIntent.putExtra("shuffle", isShuffle);
+                        prevSongIntent.putExtra("repeat", isRepeat);
+                        break;
+                    }
                 }
                 startActivity(prevSongIntent);
                 finish();
